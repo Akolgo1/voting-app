@@ -41,7 +41,7 @@ export async function createVote(data: {
 	});
 
 	if (error) {
-		throw "Fail to create vote." + error.message;
+		throw "Fail to create vote. " + error.message;
 	} else {
 		redirect("/vote/" + voteId);
 	}

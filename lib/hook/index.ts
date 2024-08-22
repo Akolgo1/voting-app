@@ -39,8 +39,8 @@ export function useUser() {
 	return useQuery({
 		queryKey: ["user"],
 		queryFn: async () => {
-			const { data } = await supabase.auth.getSession();
-			return { user: data.session?.user };
+			const { data: { user }} = await supabase.auth.getUser();
+			return { user: user };
 		},
 		staleTime: Infinity,
 	});
