@@ -26,21 +26,12 @@ export default function Profile({ user }: { user: User | undefined }) {
 
 	return (
 		<>
-			{data && data.is_admin && <AdminAvatar user={user} /> }
-			{data && !data.is_admin && (
-				<Image
-					src={user?.user_metadata?.avatar_url}
-					width={50}
-					height={50}
-					alt={user?.user_metadata?.user_name}
-					className=" rounded-full ring-blue-500 ring cursor-pointer transition-all animate-fade"
-				/>
-			)}
+			<AdminAvatar user={user} isAdmin={data?.is_admin ?? false} />
 		</>
 	);
 };
 
-const AdminAvatar = ({ user }: { user: User | undefined }) => {
+const AdminAvatar = ({ user, isAdmin }: { user: User | undefined, isAdmin: boolean }) => {
 	return (
 		<>
 			<Popover>
@@ -49,12 +40,12 @@ const AdminAvatar = ({ user }: { user: User | undefined }) => {
 						src={user?.user_metadata?.avatar_url}
 						width={50}
 						height={50}
-						alt={user?.user_metadata?.user_name}
+						alt={user?.user_metadata?.user_name?? "user avatar"}
 						className=" rounded-full ring-green-500 ring cursor-pointer hover:scale-110 transition-all animate-fade"
 					/>
 				</PopoverTrigger>
 				<PopoverContent className="w-72 space-y-5 divide-y" align="end">
-					<Link href={"/profile?id=" + user?.id}>
+					{isAdmin && (<Link href={"/profile?id=" + user?.id}>
 						<Button
 							className="w-full flex items-center justify-between rounded-none "
 							variant="ghost"
@@ -66,8 +57,8 @@ const AdminAvatar = ({ user }: { user: User | undefined }) => {
 						>
 							Profile <GearIcon />
 						</Button>
-					</Link>
-					<Link href="/create">
+					</Link>)}
+					{isAdmin && (<Link href="/create">
 						<Button
 							className="w-full flex items-center justify-between rounded-none "
 							variant="ghost"
@@ -79,7 +70,7 @@ const AdminAvatar = ({ user }: { user: User | undefined }) => {
 						>
 							Create <PlusIcon />
 						</Button>
-					</Link>
+					</Link>)}
 
 					<Logout />
 				</PopoverContent>

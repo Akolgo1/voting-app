@@ -4,12 +4,13 @@ import { GitHubLogoIcon } from "@radix-ui/react-icons";
 import { Button } from "@/components/ui/button";
 import { createClient } from "@/lib/supabase/client";
 import { redirect } from "next/navigation";
+import { SiGoogle } from "react-icons/si";
 
 export default function AuthComponent() {
 	const supabase = createClient()
 	const handleLoginWithOAuth = async() => {
 		const { data, error} = await supabase.auth.signInWithOAuth({
-			provider: "github",
+			provider: "google",
 			options: {
 				redirectTo: location.origin + "/auth/callback?next=" + location.pathname,
 			},
@@ -28,7 +29,7 @@ export default function AuthComponent() {
 						formAction={handleLoginWithOAuth}
 						className="flex items-center gap-2 mx-auto"
 					>
-						<GitHubLogoIcon /> Login with Github
+						<SiGoogle /> Login with Google
 					</Button>
 				</form>
 			</div>

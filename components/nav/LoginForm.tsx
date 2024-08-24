@@ -3,13 +3,14 @@ import React from "react";
 import { Button } from "../ui/button";
 import { GitHubLogoIcon } from "@radix-ui/react-icons";
 import { createClient } from "@/lib/supabase/client";
+import { SiGoogle } from "react-icons/si";
 
 export default function LoginForm() {
 	const supabase = createClient();
 
 	const handleLoginWithGihub = async () => {
 		await supabase.auth.signInWithOAuth({
-			provider: "github",
+			provider: "google",
 			options: {
 				redirectTo:
 					location.origin +
@@ -25,7 +26,7 @@ export default function LoginForm() {
 			className="flex items-center gap-2 border p-2 rounded-md border-zinc-400 hover:border-green-500 transition-all px-8 animate-fade"
 			onClick={handleLoginWithGihub}
 		>
-			<GitHubLogoIcon /> Login
+			<SiGoogle /> Login
 		</Button>
 	);
 }
