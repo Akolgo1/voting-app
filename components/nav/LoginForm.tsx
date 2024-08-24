@@ -2,9 +2,10 @@
 import React from "react";
 import { Button } from "../ui/button";
 import { GitHubLogoIcon } from "@radix-ui/react-icons";
-import { createSupabaseBrower } from "@/lib/supabase/client";
+import { createClient } from "@/lib/supabase/client";
+
 export default function LoginForm() {
-	const supabase = createSupabaseBrower();
+	const supabase = createClient();
 
 	const handleLoginWithGihub = async () => {
 		await supabase.auth.signInWithOAuth({

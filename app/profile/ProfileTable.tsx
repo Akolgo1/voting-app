@@ -34,13 +34,13 @@ import {
 	PopoverTrigger,
 } from "@/components/ui/popover";
 import toast from "react-hot-toast";
-import { createSupabaseBrower } from "@/lib/supabase/client";
 import { updateVotePath } from "@/lib/actions/vote";
 import Link from "next/link";
+import { createClient } from "@/lib/supabase/client";
 
 export default function ProfileTable({ data }: { data: IVote[] }) {
 	const [votes, setVotes] = useState(data);
-	const supabse = createSupabaseBrower();
+	const supabse = createClient();
 	const [animationParent] = useAutoAnimate();
 
 	const handleShare = async (id: string) => {

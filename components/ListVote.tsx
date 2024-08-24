@@ -5,13 +5,7 @@ import React from "react";
 import Image from "next/image";
 import { Badge } from "./ui/badge";
 
-export default function ListVote({
-	votes,
-	isExpire,
-}: {
-	votes: IVotes;
-	isExpire?: boolean;
-}) {
+export default function ListVote({ votes, isExpire, }: { votes: IVotes; isExpire?: boolean; }) {
 	return (
 		<div className=" w-full mx-auto py-10 px-10 md:p-5 grid  grid-cols-1 md:grid-cols-2 xl:grid-cols-3 grid-flow-dense gap-y-20 gap-10 ">
 			{votes?.map(({ title, end_date, users, id }, index) => {
