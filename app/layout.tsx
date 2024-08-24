@@ -14,25 +14,25 @@ export const metadata: Metadata = {
 	metadataBase: new URL(getUrl()),
 
 	title: {
-		template: "%s | Daily Vote",
-		default: "Daily Vote",
+		template: "%s | CSVote",
+		default: "CSVote",
 	},
 	authors: {
-		name: "chensokheng",
+		name: "akolgo",
 	},
 
 	description:
 		"Cast your vote now and see live updates on the poll results, powered by the real-time capabilities of Supabase database integration in our web app",
 	openGraph: {
-		title: "Daily Vote",
+		title: "CSVote",
 		description:
 			"Cast your vote now and see live updates on the poll results, powered by the real-time capabilities of Supabase database integration in our web app.",
 		url: getUrl(),
-		siteName: "Daily Vote",
+		siteName: "CSVote",
 		images: "/og.png",
 		type: "website",
 	},
-	keywords: ["daily votes", "akolgo"],
+	keywords: ["college of science votes", "akolgo"],
 };
 
 export default async function RootLayout({

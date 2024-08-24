@@ -46,6 +46,18 @@ export function useUser() {
 	});
 }
 
+export function useGetAdminStatus(userID: string) {
+	const supabase = createClient();
+	return useQuery({
+		queryKey: ["admin-status"],
+		queryFn: async () => {
+			const { data } = await supabase.from("users").select('is_admin').eq('id', userID).single();
+			return data
+		},
+		staleTime: Infinity,
+	});
+}
+
 export function useComment(voteId: string) {
 	const supabase = createClient();
 

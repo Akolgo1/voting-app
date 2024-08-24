@@ -1,3 +1,5 @@
+"use client";
+
 import { Button } from "@/components/ui/button";
 import {
 	Popover,
@@ -10,12 +12,22 @@ import Image from "next/image";
 import Logout from "./Logout";
 import { User } from "@supabase/supabase-js";
 import Link from "next/link";
+import { useGetAdminStatus } from "@/lib/hook";
 
 export default function Profile({ user }: { user: User | undefined }) {
+	const { data, isFetching, isError, error } = useGetAdminStatus(user?.id ?? "");
+
+	if(isError) throw new Error(error?.message ?? "An error occured fetching admin status");
+	
+
+	if (isFetching) {
+		return <></>;
+	}
+
 	return (
 		<>
 			<Popover>
-				<PopoverTrigger asChild id="close-popover">
+				<PopoverTrigger asChild id="close-popover" disabled={!data?.is_admin}>
 					<Image
 						src={user?.user_metadata?.avatar_url}
 						width={50}
