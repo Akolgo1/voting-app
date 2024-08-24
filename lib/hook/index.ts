@@ -54,7 +54,6 @@ export function useGetAdminStatus(userID: string) {
 			const { data } = await supabase.from("users").select('is_admin').eq('id', userID).single();
 			return data
 		},
-		staleTime: Infinity,
 	});
 }
 

@@ -26,14 +26,31 @@ export default function Profile({ user }: { user: User | undefined }) {
 
 	return (
 		<>
+			{data && data.is_admin && <AdminAvatar user={user} /> }
+			{data && !data.is_admin && (
+				<Image
+					src={user?.user_metadata?.avatar_url}
+					width={50}
+					height={50}
+					alt={user?.user_metadata?.user_name}
+					className=" rounded-full ring-blue-500 ring cursor-pointer transition-all animate-fade"
+				/>
+			)}
+		</>
+	);
+};
+
+const AdminAvatar = ({ user }: { user: User | undefined }) => {
+	return (
+		<>
 			<Popover>
-				<PopoverTrigger asChild id="close-popover" disabled={!data?.is_admin}>
+				<PopoverTrigger asChild id="close-popover">
 					<Image
 						src={user?.user_metadata?.avatar_url}
 						width={50}
 						height={50}
 						alt={user?.user_metadata?.user_name}
-						className=" rounded-full ring-green-500 ring cursor-pointer hover:scale-125 transition-all animate-fade"
+						className=" rounded-full ring-green-500 ring cursor-pointer hover:scale-110 transition-all animate-fade"
 					/>
 				</PopoverTrigger>
 				<PopoverContent className="w-72 space-y-5 divide-y" align="end">
