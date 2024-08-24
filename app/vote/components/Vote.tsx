@@ -1,5 +1,4 @@
 "use client";
-import { createSupabaseBrower } from "@/lib/supabase/client";
 import { cn, getHightValueObjectKey } from "@/lib/utils";
 import { redirect } from "next/navigation";
 import React, { useEffect, useMemo } from "react";
@@ -9,9 +8,10 @@ import { InfoCircledIcon } from "@radix-ui/react-icons";
 import { useGetVote } from "@/lib/hook";
 import VoteLoading from "./VoteLoading";
 import { useQueryClient } from "@tanstack/react-query";
+import { createClient } from "@/lib/supabase/client";
 
 export default function Vote({ id }: { id: string }) {
-	const supabase = createSupabaseBrower();
+	const supabase = createClient();
 	const queryClient = useQueryClient();
 	const { data, isFetching } = useGetVote(id);
 

@@ -6,9 +6,9 @@ import { revalidatePath } from "next/cache";
 import { createClient } from "../supabase/server";
 
 export async function listActiveVotes() {
-	const supabase = createClient();
+	const supabase = await createClient();
 
-	return supabase
+	return await supabase
 		.from("vote")
 		.select("*,users(*)")
 		.filter("end_date", "gte", new Date().toISOString())
@@ -16,9 +16,9 @@ export async function listActiveVotes() {
 }
 
 export async function listExpiredVotes() {
-	const supabase = createClient();
+	const supabase = await createClient();
 
-	return supabase
+	return await supabase
 		.from("vote")
 		.select("*,users(*)")
 		.filter("end_date", "lte", new Date().toISOString())
@@ -31,7 +31,7 @@ export async function createVote(data: {
 	title: string;
 	description?: string;
 }) {
-	const supabase = createClient();
+	const supabase = await createClient();
 
 	const { data: voteId, error } = await supabase.rpc("create_vote", {
 		options: data.vote_options,
@@ -52,7 +52,7 @@ export async function updateVotePath(id: string) {
 }
 
 export async function getVoteById(id: string) {
-	const suapbase = createClient();
+	const suapbase = await createClient();
 	return await suapbase.from("vote").select("*").eq("id", id).single();
 }
 
@@ -64,7 +64,7 @@ export async function updateVoteById(
 	},
 	voteId: string
 ) {
-	const suapbase = createClient();
+	const suapbase = await createClient();
 	const { error, data: vote } = await suapbase
 		.from("vote")
 		.update({

@@ -10,7 +10,6 @@ import { MoreHorizontal } from "lucide-react";
 import { IComment } from "@/lib/types";
 import Image from "next/image";
 import { NUMBER_OF_COMMENTS } from "@/lib/constant";
-import { createSupabaseBrower } from "@/lib/supabase/client";
 import toast from "react-hot-toast";
 import { useComment, useGetVote, useUser } from "@/lib/hook";
 import { useQueryClient } from "@tanstack/react-query";
@@ -33,6 +32,7 @@ import {
 	PopoverTrigger,
 } from "@/components/ui/popover";
 import { Pencil1Icon, TrashIcon } from "@radix-ui/react-icons";
+import { createClient } from "@/lib/supabase/client";
 
 export default function Comment({ voteId }: { voteId: string }) {
 	const { data } = useUser();
@@ -43,7 +43,7 @@ export default function Comment({ voteId }: { voteId: string }) {
 	const { data: vote } = useGetVote(voteId);
 
 	const [isVisible, setIsVisible] = useState(false);
-	const supabase = createSupabaseBrower();
+	const supabase = createClient();
 	const queryClient = useQueryClient();
 
 	const { data: comments } = useComment(voteId);
@@ -261,7 +261,7 @@ const CommentActions = ({
 	voteId: string;
 	text: string;
 }) => {
-	const supabase = createSupabaseBrower();
+	const supabase = createClient();
 	const queryClient = useQueryClient();
 	const inputRef = useRef() as React.MutableRefObject<HTMLInputElement>;
 	const deleteComment = async () => {

@@ -7,8 +7,8 @@ export async function GET(request: Request) {
   const next = searchParams.get('next') ?? "/profile";
 
   if (code) {
-    const supabase = createClient();
-    await supabase.auth.exchangeCodeForSession(code);
+    const supabase = await createClient();
+    await supabase.auth.exchangeCodeForSession(code)
   }
 
   return NextResponse.redirect(`${origin}${next}`);
