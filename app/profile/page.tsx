@@ -1,17 +1,11 @@
 import React from "react";
 import ProfileTable from "./ProfileTable";
-import createSupabaseServer from "@/lib/supabase/server";
 import { redirect } from "next/navigation";
 import { IVote } from "@/lib/types";
+import { createClient } from "@/lib/supabase/server";
 
-export default async function page({
-	searchParams,
-}: {
-	searchParams: {
-		id: string;
-	};
-}) {
-	const supabase = await createSupabaseServer();
+export default async function page({searchParams,}: {searchParams: {id: string;};}) {
+	const supabase = await createClient();
 
 	if (!searchParams?.id) {
 		return redirect("/");

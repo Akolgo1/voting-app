@@ -1,20 +1,23 @@
 "use server";
+import { Database } from "../types/supabase";
 import { createServerClient } from "@supabase/ssr";
 import { cookies } from "next/headers";
-import { Database } from "../types/supabase";
 
-export default async function createSupabaseServer() {
-	const cookieStore = cookies();
+export const createClient = () => {
+  	const cookieStore = cookies();
 
-	return createServerClient<Database>(
+  	return createServerClient<Database>(
 		process.env.NEXT_PUBLIC_SUPABASE_URL!,
 		process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
 		{
-			cookies: {
-				get(name: string) {
-					return cookieStore.get(name)?.value;
-				},
+		cookies: {
+			getAll() {
+				return cookieStore.getAll()
 			},
+			setAll(cookiesToSet) {
+				cookiesToSet.forEach(({ name, value, options }) => cookieStore.set(name, value, options))
+			},
+		},
 		}
-	);
-}
+	)
+};

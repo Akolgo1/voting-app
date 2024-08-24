@@ -6,11 +6,12 @@ import Footer from "../components/Footer";
 import Navbar from "@/components/nav/Navbar";
 import { ThemeProvider } from "@/components/theme-provider";
 import QueryProvider from "@/components/QueryProvider";
+import { getUrl } from "@/lib/utils";
 
 const inter = Space_Grotesk({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-	metadataBase: new URL("https://next-supabase-vote.vercel.app/"),
+	metadataBase: new URL(getUrl()),
 
 	title: {
 		template: "%s | Daily Vote",
@@ -26,12 +27,12 @@ export const metadata: Metadata = {
 		title: "Daily Vote",
 		description:
 			"Cast your vote now and see live updates on the poll results, powered by the real-time capabilities of Supabase database integration in our web app.",
-		url: "https://next-supabase-vote.vercel.app/",
+		url: getUrl(),
 		siteName: "Daily Vote",
 		images: "/og.png",
 		type: "website",
 	},
-	keywords: ["daily web coding", "chensokheng", "dailywebcoding"],
+	keywords: ["daily votes", "akolgo"],
 };
 
 export default async function RootLayout({

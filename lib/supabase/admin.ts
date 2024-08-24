@@ -1,18 +1,22 @@
-"use server";
-import { unstable_noStore } from "next/cache";
 import { Database } from "../types/supabase";
-import { createClient } from "@supabase/supabase-js";
+import { createServerClient } from "@supabase/ssr";
+import { cookies } from "next/headers";
 
-export default async function createSupabaseServerAdmin() {
-	unstable_noStore();
-	return createClient<Database>(
+export const createAdmin = () => {
+  	const cookieStore = cookies();
+
+  	return createServerClient<Database>(
 		process.env.NEXT_PUBLIC_SUPABASE_URL!,
 		process.env.SERVICE_ROLE!,
 		{
-			auth: {
-				autoRefreshToken: false,
-				persistSession: false,
+		cookies: {
+			getAll() {
+				return cookieStore.getAll()
 			},
+			setAll(cookiesToSet) {
+				cookiesToSet.forEach(({ name, value, options }) => cookieStore.set(name, value, options))
+			},
+		},
 		}
-	);
-}
+	)
+};

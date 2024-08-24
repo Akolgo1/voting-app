@@ -1,11 +1,11 @@
 import { useUser } from "@/lib/hook";
-import { createSupabaseBrower } from "@/lib/supabase/client";
+import { createClient } from "@/lib/supabase/client";
 import { IComment } from "@/lib/types";
 import { useQueryClient } from "@tanstack/react-query";
 import { useEffect } from "react";
 
 export default function CommentListener({ voteId }: { voteId: string }) {
-	const supabase = createSupabaseBrower();
+	const supabase = createClient();
 
 	const { data } = useUser();
 	const queryClient = useQueryClient();

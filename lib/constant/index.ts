@@ -22,9 +22,9 @@ export const rings = [
 	},
 ];
 
-export const emojis = ["🤔", "🤖", "🔔", "🎷", "📺", "🎨"];
-
 export const NUMBER_OF_COMMENTS = 10;
 
-export const DEFAUTL_DESCRIPTION =
+export const DEFAULT_DESCRIPTION =
 	"Cast your vote now and see live updates on the poll results, powered by the real-time capabilities of Supabase database integration in our web ap";
+
+export const ORIGIN = process.env.NEXT_PUBLIC_VERCEL_URL

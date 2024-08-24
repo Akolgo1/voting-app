@@ -1,13 +1,14 @@
 import React from "react";
 import CloseForm from "../components/CloseForm";
 import { redirect } from "next/navigation";
-import { createSupabaseBrower } from "@/lib/supabase/client";
 import VoteWrapper from "../components/VoteWrapper";
 import Info from "../components/Info";
-import { DEFAUTL_DESCRIPTION } from "@/lib/constant";
+import { DEFAULT_DESCRIPTION } from "@/lib/constant";
+import { createClient } from "@/lib/supabase/client";
+import { getUrl } from "@/lib/utils";
 
 export async function generateStaticParams() {
-	const supabase = await createSupabaseBrower();
+	const supabase = createClient();
 
 	const { data: votes } = await supabase
 		.from("vote")
@@ -18,7 +19,7 @@ export async function generateStaticParams() {
 }
 
 export async function generateMetadata({ params }: { params: { id: string } }) {
-	const supabase = await createSupabaseBrower();
+	const supabase = createClient();
 
 	const { data } = await supabase
 		.from("vote")
@@ -26,16 +27,16 @@ export async function generateMetadata({ params }: { params: { id: string } }) {
 		.eq("id", params.id)
 		.single();
 
-	const url = "https://next-supabase-vote.vercel.app/";
+	const url = getUrl();
 
 	return {
 		title: data?.title,
 		authors: {
 			name: data?.users?.user_name,
 		},
-		description: data?.description || DEFAUTL_DESCRIPTION,
+		description: data?.description || DEFAULT_DESCRIPTION,
 		openGraph: {
-			description: data?.description || DEFAUTL_DESCRIPTION,
+			description: data?.description || DEFAULT_DESCRIPTION,
 			title: data?.title,
 			url: url + "vote/" + data?.id,
 			siteName: "Daily Vote",
@@ -49,7 +50,7 @@ export async function generateMetadata({ params }: { params: { id: string } }) {
 }
 
 export default async function Page({ params }: { params: { id: string } }) {
-	const supabase = createSupabaseBrower();
+	const supabase = createClient();
 
 	const { data: vote } = await supabase
 		.from("vote")
